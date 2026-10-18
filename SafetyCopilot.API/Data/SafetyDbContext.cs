@@ -11,6 +11,16 @@ public class SafetyDbContext : DbContext
     {
     }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        //base.OnConfiguring(optionsBuilder);
+
+        if(!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(
+                "Server=DESKTOP-B4RQ2N7\\sqlexpress;Database=SafetyCopilotDb;Trusted_Connection=True;TrustServerCertificate=True;");
+        }
+    }
 
     public DbSet<User> Users
         => Set<User>();
