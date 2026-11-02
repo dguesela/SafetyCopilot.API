@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SafetyCopilot.API.Data;
 using SafetyCopilot.API.DTOs;
 using SafetyCopilot.API.Models;
@@ -26,6 +26,8 @@ public class RequirementService
     {
         return await _db.Requirements
             .AsNoTracking()
+            .Include(x => x.HumanClassification)
+            .Include(x => x.AiClassification)
             .Where(x =>
                 x.Document != null &&
                 x.Document.ProjectId ==
@@ -49,6 +51,8 @@ public class RequirementService
     {
         return await _db.Requirements
             .AsNoTracking()
+            .Include(x => x.HumanClassification)
+            .Include(x => x.AiClassification)
             .Where(x =>
                 x.DocumentId ==
                     documentId)
@@ -69,6 +73,8 @@ public class RequirementService
     {
         return await _db.Requirements
             .AsNoTracking()
+            .Include(x => x.HumanClassification)
+            .Include(x => x.AiClassification)
             .Where(x =>
                 x.Id ==
                     requirementId)
