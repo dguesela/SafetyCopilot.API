@@ -24,6 +24,22 @@ public class AiClassificationController
      * RUN AI CLASSIFICATION
      * ============================================================
      */
+    [HttpPut("projects/{projectId:guid}/requirements/{requirementId:guid}/revision-decision")]
+    public async Task<ActionResult<RevisionDecisionResponse>> SaveRevisionDecision(
+        Guid projectId, Guid requirementId, [FromBody] RevisionDecisionRequest request,
+        CancellationToken cancellationToken)
+    {
+        try
+        {
+            var result = await _classificationService.SaveRevisionDecisionAsync(
+                projectId, requirementId, request, cancellationToken);
+            if (result == null) return NotFound(new { message = "The project or revision was not found." });
+            return Ok(result);
+        }
+        catch (ArgumentException ex) { return BadRequest(new { message = ex.Message }); }
+        catch (InvalidOperationException ex) { return Conflict(new { message = ex.Message }); }
+    }
+
     [HttpPost(
         "projects/{projectId:guid}/ai-classification")]
     public async Task<ActionResult<AiClassificationRunResponse>>

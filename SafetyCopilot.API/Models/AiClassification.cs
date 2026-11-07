@@ -16,6 +16,18 @@ namespace SafetyCopilot.API.Models
 
         public string? Explanation { get; set; }
 
+        // Null means this result predates revision assessment.
+        public bool? RevisionNeeded { get; set; }
+
+        public string? SuggestedRevision { get; set; }
+
+        public string? RevisionReason { get; set; }
+
+        [MaxLength(16)]
+        public string? RevisionDecision { get; set; }
+
+        public DateTime? RevisionReviewedAtUtc { get; set; }
+
         [MaxLength(200)]
         public string? ModelName { get; set; }
 

@@ -47,6 +47,22 @@ namespace SafetyCopilot.API.Migrations
                     b.Property<Guid>("RequirementId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("RevisionDecision")
+                        .HasMaxLength(16)
+                        .HasColumnType("nvarchar(16)");
+
+                    b.Property<bool?>("RevisionNeeded")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RevisionReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RevisionReviewedAtUtc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SuggestedRevision")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RequirementId")

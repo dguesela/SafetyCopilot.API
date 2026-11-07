@@ -4,6 +4,10 @@ namespace SafetyCopilot.API.Services;
 
 public interface IOpenAiClassificationService
 {
+    Task<RevisionDecisionResponse?> SaveRevisionDecisionAsync(
+        Guid projectId, Guid requirementId, RevisionDecisionRequest request,
+        CancellationToken cancellationToken = default);
+
     Task<AiClassificationRunResponse>
         ClassifyProjectAsync(
             Guid projectId,

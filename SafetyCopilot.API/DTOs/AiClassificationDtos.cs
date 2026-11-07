@@ -13,7 +13,12 @@ public record AiClassificationResponse(
     double? Confidence,
     string? Explanation,
     string? ModelName,
-    DateTime ClassifiedAtUtc
+    DateTime ClassifiedAtUtc,
+    bool? RevisionNeeded = null,
+    string? SuggestedRevision = null,
+    string? RevisionReason = null,
+    string? RevisionDecision = null,
+    DateTime? RevisionReviewedAtUtc = null
 );
 
 public record AiClassificationRunResponse(
@@ -31,7 +36,12 @@ public record AiClassificationDetailsResponse(
     double? Confidence,
     string? Explanation,
     string? ModelName,
-    DateTime ClassifiedAtUtc
+    DateTime ClassifiedAtUtc,
+    bool? RevisionNeeded = null,
+    string? SuggestedRevision = null,
+    string? RevisionReason = null,
+    string? RevisionDecision = null,
+    DateTime? RevisionReviewedAtUtc = null
 );
 
 public record AiClassificationResultsResponse(
@@ -42,4 +52,16 @@ public record AiClassificationResultsResponse(
     double? AverageConfidence,
     string? ModelName,
     IReadOnlyList<AiClassificationDetailsResponse> Results
+);
+public record RevisionDecisionRequest(
+    Guid UserId,
+    [Required, RegularExpression("^(accepted|rejected|pending)$")]
+    string Decision,
+    DateTime ClassifiedAtUtc
+);
+
+public record RevisionDecisionResponse(
+    Guid RequirementId,
+    string? RevisionDecision,
+    DateTime? RevisionReviewedAtUtc
 );
